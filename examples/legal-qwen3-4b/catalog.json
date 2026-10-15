@@ -1,0 +1,2036 @@
+{
+  "count": 48,
+  "datasets": [
+    {
+      "id": "pile-of-law/pile-of-law",
+      "file": "references/pile-of-law__pile-of-law.md",
+      "url": "https://huggingface.co/datasets/pile-of-law/pile-of-law",
+      "kind": "text",
+      "use": "train",
+      "origin": "human",
+      "gated": false,
+      "partial": null,
+      "rows_served": null,
+      "rows_display": "viewer disabled; 256GB per the paper",
+      "splits": {},
+      "columns": null,
+      "licence_card_field": [
+        "cc-by-nc-sa-4.0"
+      ],
+      "licence_display": "cc-by-nc-sa-4.0",
+      "flag": "not-decontaminated",
+      "commit": "2e96169e7e4b43f8ea36230515ebb44b27423b94",
+      "language": [
+        "en"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: the `validation` split is a random 25% the authors \"do not use ... for any downstream tasks\" [2]. Of external benchmarks: the `tos` config is the CLAUDETTE corpus (its rows' `url` is `http://claudette.eui.eu/ToS.zip`) [7], the raw source of LexGLUE `unfair_tos` [8]; `r_legaladvice` is r/legaladvice, the forum the LearnedHands questions in LegalBench come from [9]; `atticus_contracts` and `edgar` are EDGAR contracts like those CUAD and MAUD annotate. Screen against LegalBench and LexGLUE before any scored run."
+      ],
+      "traps": [
+        "**Trap**: the loading script wraps each file in a bare `try: ... except: print(\"Error reading file:\", filepath)` [3], so a truncated or corrupted download prints one line and the split silently comes back short. Count rows against a reference after loading, and on `datasets` 4.x, which removed script loading, read the `data/*.jsonl.xz` files directly instead."
+      ],
+      "card_sha256": "5222fbdaa2cd46802973824d698c9f19f61ea2b63ec9534523558d71e4c49eff"
+    },
+    {
+      "id": "joelniklaus/Multi_Legal_Pile",
+      "file": "references/joelniklaus__Multi_Legal_Pile.md",
+      "url": "https://huggingface.co/datasets/joelniklaus/Multi_Legal_Pile",
+      "kind": "text",
+      "use": "train",
+      "origin": "mixed",
+      "gated": false,
+      "partial": null,
+      "rows_served": null,
+      "rows_display": "viewer serves no rows; 689GB per the card",
+      "splits": {},
+      "columns": null,
+      "licence_card_field": [
+        "cc-by-nc-sa-4.0"
+      ],
+      "licence_display": "cc-by-nc-sa-4.0 (per-source licences inside)",
+      "flag": "script-loaded",
+      "commit": "911e1d214162fd11d2c78d3f1428cbfcbe07782c",
+      "language": [
+        "bg",
+        "cs",
+        "da",
+        "de",
+        "el",
+        "en",
+        "es",
+        "et",
+        "fi",
+        "fr",
+        "ga",
+        "hr",
+        "hu",
+        "it",
+        "lt",
+        "lv",
+        "mt",
+        "nl",
+        "pl",
+        "pt",
+        "ro",
+        "sk",
+        "sl",
+        "sv"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: nothing inside the repository - one `train` split. The English configs pull Pile of Law, which its authors did not decontaminate, so the same screening applies; see the `pile-of-law/pile-of-law` card."
+      ],
+      "traps": [
+        "**Trap**: the English configs download Pile of Law's `train` *and* `validation` files and yield both inside a single `train` split [4], so the 25% Pile of Law set aside as validation is inside this corpus's training data. The revision pin covers only this repository: the script also downloads from `joelito/Multi_Legal_Pile`, `joelito/eurlex_resources` and `joelito/legal-mc4` by name, unpinned [4], so a load can change when those repositories change."
+      ],
+      "card_sha256": "59efe41d049a163b7607e24d6a69f33ca8346f42dad18f0675fa8f3e282b210f"
+    },
+    {
+      "id": "HFforLegal/case-law",
+      "file": "references/HFforLegal__case-law.md",
+      "url": "https://huggingface.co/datasets/HFforLegal/case-law",
+      "kind": "text",
+      "use": "train",
+      "origin": "human",
+      "gated": false,
+      "partial": true,
+      "rows_served": 282390,
+      "rows_display": "541,371 declared on the card",
+      "splits": {
+        "default/us": 282390
+      },
+      "columns": {
+        "id": "string",
+        "title": "string",
+        "citation": "string",
+        "docket_number": "string",
+        "state": "string",
+        "issuer": "string",
+        "document": "string",
+        "hash": "string",
+        "timestamp": "string"
+      },
+      "licence_card_field": "cc-by-4.0",
+      "licence_display": "cc-by-4.0",
+      "flag": null,
+      "commit": "dc0151fad300088cc7c21773bd3d680e0a514311",
+      "language": [
+        "fr",
+        "en"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: nothing inside the repository. U.S. opinions are the raw material of CaseHOLD and of the Lawma/CaselawQA tasks, so screen before reporting those benchmarks."
+      ],
+      "traps": [
+        "**Trap**: the card's own usage snippet loads the dataset and then reads `dataset['fr']` to \"Access the French legal decisions\" [1], but no `fr` split exists - the `configs` block maps a single split, `us`, to `data/us-*` [2]. The snippet raises a `KeyError`. Use `split=\"us\"`."
+      ],
+      "card_sha256": "5299e43112c88617604b8d5d53b4824ee60d912012e5838820ad04e01b7c2414"
+    },
+    {
+      "id": "a2aj/canadian-case-law",
+      "file": "references/a2aj__canadian-case-law.md",
+      "url": "https://huggingface.co/datasets/a2aj/canadian-case-law",
+      "kind": "text",
+      "use": "train",
+      "origin": "human",
+      "gated": false,
+      "partial": false,
+      "rows_served": 226019,
+      "rows_display": "226,019",
+      "splits": {
+        "default/train": 226019
+      },
+      "columns": {
+        "dataset": "string",
+        "citation_en": "string",
+        "citation2_en": "string",
+        "name_en": "string",
+        "document_date_en": "timestamp[us, tz=UTC]",
+        "url_en": "string",
+        "scraped_timestamp_en": "timestamp[us, tz=UTC]",
+        "unofficial_text_en": "string",
+        "cases_cited_en": "list<string>",
+        "cases_citing_en": "list<string>",
+        "citation_fr": "string",
+        "citation2_fr": "string",
+        "name_fr": "string",
+        "document_date_fr": "timestamp[us, tz=UTC]",
+        "url_fr": "string",
+        "scraped_timestamp_fr": "timestamp[us, tz=UTC]",
+        "unofficial_text_fr": "string",
+        "cases_cited_fr": "list<string>",
+        "cases_citing_fr": "list<string>",
+        "citing_cases_count": "int64",
+        "upstream_license": "string"
+      },
+      "licence_card_field": "mit",
+      "licence_display": "mit (upstream terms per row)",
+      "flag": "licence-per-source",
+      "commit": "c2bf798c3e0b20f7a44f4998f8003f5b5b8e2240",
+      "language": [
+        "en",
+        "fr"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: nothing inside the repository - one `train` split. No external benchmark in this skill is drawn from Canadian decisions, apart from LegalBench's `canada_tax_court_outcomes` task, which uses Tax Court of Canada judgments - a court this corpus covers (`TCC`, 8,124 rows per the card) [1]."
+      ],
+      "traps": [
+        "**Trap**: English and French live in separate columns of the same row, not in separate rows [6]. A pipeline that reads only a `text` column finds none, and one that concatenates `unofficial_text_en` and `unofficial_text_fr` trains on the same decision twice in two languages. Pick one column per row, or both deliberately."
+      ],
+      "card_sha256": "4e28bf4bb8e71b4547cbc5230c3c65119d677b87b4f4d1a3a9256a7077b75314"
+    },
+    {
+      "id": "nvidia/Nemotron-Pretraining-Legal-v1",
+      "file": "references/nvidia__Nemotron-Pretraining-Legal-v1.md",
+      "url": "https://huggingface.co/datasets/nvidia/Nemotron-Pretraining-Legal-v1",
+      "kind": "text",
+      "use": "both",
+      "origin": "mixed",
+      "gated": false,
+      "partial": false,
+      "rows_served": 9616568,
+      "rows_display": "9,616,568",
+      "splits": {
+        "Nemotron-Pretraining-Legal-California-Code-Of-Regulations/train": 57523,
+        "Nemotron-Pretraining-Legal-Case-Law-Summary/train": 53137,
+        "Nemotron-Pretraining-Legal-CaseHOLD/train": 5449347,
+        "Nemotron-Pretraining-Legal-Definition-Classification/train": 10200,
+        "Nemotron-Pretraining-Legal-Diversity-Jurisdiction/train": 6480,
+        "Nemotron-Pretraining-Legal-Function-Of-Decision/train": 70039,
+        "Nemotron-Pretraining-Legal-GlobalCit/train": 88898,
+        "Nemotron-Pretraining-Legal-LegalBench-CUAD-v2/train": 460031,
+        "Nemotron-Pretraining-Legal-NYCourts-Judicial-Ethics-Opinions/train": 5511,
+        "Nemotron-Pretraining-Legal-ToS-Clause-Understanding/train": 6831,
+        "Nemotron-Pretraining-Legal-ToSDR-QA/train": 7569,
+        "Nemotron-Pretraining-Legal-eCFR/train": 35173,
+        "Nemotron-Pretraining-Legal-eCFR-QA/train": 3365829
+      },
+      "columns": {
+        "text": "large_string",
+        "license": "large_string",
+        "metadata": "struct<category: large_string, models_used: large_string>",
+        "uuid": "large_string"
+      },
+      "licence_card_field": "cc-by-4.0",
+      "licence_display": "cc-by-4.0",
+      "flag": "contains-benchmark-items",
+      "commit": "3d91d58a5c0c46fe9944300ec46719f97a385b13",
+      "language": [
+        "en"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: nothing inside the repository, but it carries benchmark items [7]: the config named `Case-Law-Summary` contains the CaseHOLD and LexGLUE `case_hold` test items, `GlobalCit` contains LegalBench's `international_citizenship_questions`, and `LegalBench-CUAD-v2` part of LegalBench's `cuad_*` items. Drop those configs if you report those benchmarks. The proxy-LegalBench gain the card reports was measured on a model trained with this data [1]."
+      ],
+      "traps": [
+        "**Trap**: the directory names are the wrong way round for the two largest-impact configs [3][5]. A mix that \"excludes CaseHOLD to stay clean\" by dropping `Nemotron-Pretraining-Legal-CaseHOLD` drops the harmless summaries and keeps the CaseHOLD questions, test items included. The per-row `metadata.category` carries the same swapped name (the CaseHOLD question in row 0 of `Case-Law-Summary` is labelled `Nemotron-Pretraining-Legal-Case-Law-Summary`) [3], so it cannot fix the swap either: select by content, and read a few rows of each config before mixing."
+      ],
+      "card_sha256": "3d600e2881db1effc6787de9d13533ab505403f9e7de813c890d8bf73fb6d594"
+    },
+    {
+      "id": "lawinstruct/lawinstruct",
+      "file": "references/lawinstruct__lawinstruct.md",
+      "url": "https://huggingface.co/datasets/lawinstruct/lawinstruct",
+      "kind": "sft",
+      "use": "both",
+      "origin": "mixed",
+      "gated": false,
+      "partial": null,
+      "rows_served": null,
+      "rows_display": "viewer serves no rows; 142 files, 10.6 GB",
+      "splits": {},
+      "columns": null,
+      "licence_card_field": [
+        "mit"
+      ],
+      "licence_display": "mit (per-source licences inside)",
+      "flag": "contains-benchmark-items",
+      "commit": "578e100783654ba791e55e5ebaaac343c66f408d",
+      "language": [
+        "bg",
+        "cs",
+        "da",
+        "de",
+        "el",
+        "en",
+        "es",
+        "et",
+        "fi",
+        "fr",
+        "ga",
+        "hr",
+        "hu",
+        "it",
+        "lt",
+        "lv",
+        "mt",
+        "nl",
+        "pl",
+        "pt",
+        "ro",
+        "sk",
+        "sl",
+        "sv",
+        "zh",
+        "ja",
+        "ko"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: nothing is held out inside the repository; every file is a `train` file [1]. Several files are copies of LegalBench sources [7]: the two International Citizenship files, the MAUD files, the ContractNLI file, the LexGLUE `unfair_tos` file and the PrivacyQA file. Drop them if you report LegalBench."
+      ],
+      "traps": [
+        "**Trap**: the card documents a `text` column that does not exist [1][8]; the rows have `instruction`, `prompt` and `answer`. A script that reads `text` sees empty rows and would report zero overlap with every benchmark."
+      ],
+      "card_sha256": "55192dc5a8030260b9885970622ea12817c293141dc3d9e7e445f0cf05312d5b"
+    },
+    {
+      "id": "common-pile/caselaw_access_project",
+      "file": "references/common-pile__caselaw_access_project.md",
+      "url": "https://huggingface.co/datasets/common-pile/caselaw_access_project",
+      "kind": "text",
+      "use": "train",
+      "origin": "human",
+      "gated": false,
+      "partial": true,
+      "rows_served": 351619,
+      "rows_display": "6,919,240 declared on the card",
+      "splits": {
+        "default/train": 351619
+      },
+      "columns": {
+        "id": "string",
+        "source": "string",
+        "added": "string",
+        "created": "string",
+        "metadata": "struct<author: string, license: string, url: string>",
+        "text": "string"
+      },
+      "licence_card_field": null,
+      "licence_display": "none on the card (rows tagged Public Domain)",
+      "flag": null,
+      "commit": "3c2cb5080b3a16a04d8d8d07b28eaec7c1ba7a90",
+      "language": [
+        "en"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: nothing inside the repository - there is one `train` split. Opinions are the raw material of several benchmarks, so screen before a scored run: CaseHOLD and LexGLUE `case_hold` prompts are excerpts of U.S. opinions [7], and the Nemotron legal set names the filtered version of this corpus as the source of three of its synthetic subsets."
+      ],
+      "traps": [
+        "**Trap**: the filtered sibling's README points readers to `common-pile/caselaw_access_project_raw` for \"the raw version\" [10], but the raw release is this repository, `common-pile/caselaw_access_project`, whose own card calls itself \"the 'raw' version\" [2]. A script that follows the filtered card's link fails. The filtered sibling's `pretty_name` also reads \"Biodiversity Heritage Library\", a copy-paste from another Common Pile card [11]."
+      ],
+      "card_sha256": "c41825db1f2fde8e8a04b55e01d52b46c934cb54deab48ee6f50f1cf1bded433"
+    },
+    {
+      "id": "isaacus/open-australian-legal-corpus",
+      "file": "references/isaacus__open-australian-legal-corpus.md",
+      "url": "https://huggingface.co/datasets/isaacus/open-australian-legal-corpus",
+      "kind": "text",
+      "use": "train",
+      "origin": "human",
+      "gated": false,
+      "partial": true,
+      "rows_served": 118346,
+      "rows_display": "232,560 declared on the card",
+      "splits": {
+        "corpus/corpus": 118346
+      },
+      "columns": {
+        "version_id": "string",
+        "type": "string",
+        "jurisdiction": "string",
+        "source": "string",
+        "mime": "string",
+        "date": "string",
+        "citation": "string",
+        "url": "string",
+        "when_scraped": "string",
+        "text": "string"
+      },
+      "licence_card_field": "other",
+      "licence_display": "other (CC BY 4.0 collection, per-source terms)",
+      "flag": "licence-per-source",
+      "commit": "ef45e3fec41a960919a31149eee6dab9aa39f725",
+      "language": [
+        "en"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: nothing inside the repository. Its QA sibling `isaacus/open-australian-legal-qa` was synthesised from this corpus's documents [7], and the evaluation set `isaacus/legal-rag-bench` draws on a Victorian bench book that this corpus does not include (Victoria is absent from its source list) [1]."
+      ],
+      "traps": [
+        "**Trap**: the split is named `corpus`, not `train`; `split=\"train\"` fails [6]. And the `type` value that marks case law is `decision` [1]: filtering on the `source` names instead misses nothing today but breaks as soon as a new court is added, because each release can add sources [2]."
+      ],
+      "card_sha256": "f2e341b1a43bd8bea22757105bdaf321cd236ab669fbf738773cbefbd69d0e1e"
+    },
+    {
+      "id": "ricdomolm/lawma-tasks",
+      "file": "references/ricdomolm__lawma-tasks.md",
+      "url": "https://huggingface.co/datasets/ricdomolm/lawma-tasks",
+      "kind": "mcq",
+      "use": "both",
+      "origin": "human",
+      "gated": false,
+      "partial": false,
+      "rows_served": 692483,
+      "rows_display": "692,483",
+      "splits": {
+        "n_configs": 260,
+        "totals_by_split": {
+          "test": 138064,
+          "train": 484786,
+          "val": 69633
+        }
+      },
+      "columns": {
+        "opinion": "string",
+        "instruction": "string",
+        "question": "string",
+        "choices": "list<string>",
+        "answer": "list<int64>"
+      },
+      "licence_card_field": "mit",
+      "licence_display": "mit",
+      "flag": null,
+      "commit": "818f6cd30d4328cf03d7778ae2b159b46e0321db",
+      "language": [
+        "en"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out every `test` split: CaselawQA (`ricdomolm/caselawqa-8k`) is 10,000 questions \"randomly selected from the test sets of the Lawma tasks\".**",
+        "**Hold out**: every config's `test` split (138,064 rows) - it is where CaselawQA's questions were drawn from [7]. Keep `val` for model selection."
+      ],
+      "traps": [
+        "**Trap**: `answer` is a *list* of indices into `choices`, not a string: row 0 of `sc_adminaction/train` has `\"answer\": [116]` [3]. A template that renders `answer` directly writes \"[116]\" as the target. Map the index to its choice (or to a letter) yourself, and handle multi-label rows where the list has more than one index."
+      ],
+      "card_sha256": "15e5ad2f5432a5a5a5852014b09b52ef476c2db23f0072b052b260ed56a02fdb"
+    },
+    {
+      "id": "ricdomolm/lawma-instructions",
+      "file": "references/ricdomolm__lawma-instructions.md",
+      "url": "https://huggingface.co/datasets/ricdomolm/lawma-instructions",
+      "kind": "sft",
+      "use": "train",
+      "origin": "human",
+      "gated": false,
+      "partial": false,
+      "rows_served": 554419,
+      "rows_display": "554,419",
+      "splits": {
+        "default/train": 553419,
+        "default/validation": 1000
+      },
+      "columns": {
+        "task": "string",
+        "output": "string",
+        "instruction": "string"
+      },
+      "licence_card_field": null,
+      "licence_display": "none on the card",
+      "flag": "no-licence",
+      "commit": "d35a9164bc698ba948c51a61b08c63a886eb3605",
+      "language": null,
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: `validation` (1,000 rows). No source says how this split relates to the parent's `val` and `test` splits; the name and the parent's design suggest it is drawn from training-side data, but that is not stated. Screen against `ricdomolm/caselawqa-8k` before a scored run."
+      ],
+      "traps": [
+        "**Trap**: the leading space in `output` is part of the target [3]. A template that inserts its own space after \"Answer:\" produces \"Answer:  F\" with two spaces and teaches the model a token sequence it will never see at evaluation. Concatenate `instruction + output` exactly as stored."
+      ],
+      "card_sha256": "f1db13554643e004a10c7ed36db61fa28be2cee788f5cf514fc83d7b1fd1ec08"
+    },
+    {
+      "id": "ricdomolm/caselawqa-8k",
+      "file": "references/ricdomolm__caselawqa-8k.md",
+      "url": "https://huggingface.co/datasets/ricdomolm/caselawqa-8k",
+      "kind": "mcq",
+      "use": "eval",
+      "origin": "human",
+      "gated": false,
+      "partial": false,
+      "rows_served": 22000,
+      "rows_display": "22,000",
+      "splits": {
+        "1k/val": 1000,
+        "1k/test": 1000,
+        "sc/val": 5000,
+        "sc/test": 5000,
+        "songer/val": 5000,
+        "songer/test": 5000
+      },
+      "columns": {
+        "opinion": "string",
+        "instruction": "string",
+        "question": "string",
+        "choices": "list<string>",
+        "answer": "list<int64>",
+        "task": "string"
+      },
+      "licence_card_field": null,
+      "licence_display": "none on the card",
+      "flag": null,
+      "commit": "2cf6113b00220ef83343de87e46479a4c2214522",
+      "language": null,
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: the whole dataset - it is a benchmark. Its source, the Lawma `test` splits, must also be kept out of training."
+      ],
+      "traps": [
+        "**Trap**: the split is named `val`, not `validation` [2]; `split=\"validation\"` fails. And, as in the parent, `answer` is a list of choice indices, not a letter [4]."
+      ],
+      "card_sha256": "31a126055ddca8d16bbf227b1303039405cd73a3af22154b314efce8dfc5f6d2"
+    },
+    {
+      "id": "isaacus/open-australian-legal-qa",
+      "file": "references/isaacus__open-australian-legal-qa.md",
+      "url": "https://huggingface.co/datasets/isaacus/open-australian-legal-qa",
+      "kind": "sft",
+      "use": "train",
+      "origin": "model",
+      "gated": false,
+      "partial": false,
+      "rows_served": 2124,
+      "rows_display": "2,124",
+      "splits": {
+        "default/train": 2124
+      },
+      "columns": {
+        "question": "string",
+        "answer": "string",
+        "text": "string",
+        "prompt": "string",
+        "source": "struct<version_id: string, type: string, jurisdiction: string, source: string, citation: string, url: string, text: string>"
+      },
+      "licence_card_field": "other",
+      "licence_display": "other (corpus licence)",
+      "flag": null,
+      "commit": "a2178afc2cff8af50fe4365c7d6f9cecf91dbe4b",
+      "language": [
+        "en"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: no split is set aside; carve your own. The questions are synthetic and not drawn from any benchmark in this skill."
+      ],
+      "traps": [
+        "**Trap**: the `text` column is `question` and `answer` already joined as \"Question: ...\\nAnswer: ...\" [1][6]. Feeding `text` as the prompt leaks the answer; build the prompt from `question` (and `source.text` for RAG) and use `answer` as the target."
+      ],
+      "card_sha256": "a791e8b3e45b850fe539e83f8cda0ae8c19569be8117a38b7ce41301b4eb353f"
+    },
+    {
+      "id": "ymoslem/Law-StackExchange",
+      "file": "references/ymoslem__Law-StackExchange.md",
+      "url": "https://huggingface.co/datasets/ymoslem/Law-StackExchange",
+      "kind": "sft",
+      "use": "train",
+      "origin": "human",
+      "gated": false,
+      "partial": false,
+      "rows_served": 24370,
+      "rows_display": "24,370",
+      "splits": {
+        "default/train": 24370
+      },
+      "columns": {
+        "question_title": "string",
+        "score": "int64",
+        "link": "string",
+        "license": "string",
+        "question_body": "string",
+        "question_id": "int64",
+        "answers": "list<struct<answer_id: int64, body: string, score: int64>>",
+        "tags": "list<string>"
+      },
+      "licence_card_field": "cc-by-sa-4.0",
+      "licence_display": "cc-by-sa-4.0",
+      "flag": null,
+      "commit": "ab2dbaad9a71b6550316994c8fcd69f24f7f16e6",
+      "language": [
+        "en"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: no split is set aside. No benchmark in this skill is drawn from Law Stack Exchange; `jonathanli/law-stack-exchange` is a small classification set from the same site, so remove its questions before evaluating on it."
+      ],
+      "traps": [
+        "**Trap**: the repository's data file is one JSON array, `law-stackexchange-questions-answers.json`, not Parquet [8]; the viewer converts it, but tools that read the raw file must parse a 106 MB single JSON document, not JSONL."
+      ],
+      "card_sha256": "e29e4045d8efc066eba93c9e84b3ed51be2af94eb7815dc97f85f8bc2db8bc9a"
+    },
+    {
+      "id": "Alignment-Lab-AI/Lawyer-Instruct",
+      "file": "references/Alignment-Lab-AI__Lawyer-Instruct.md",
+      "url": "https://huggingface.co/datasets/Alignment-Lab-AI/Lawyer-Instruct",
+      "kind": "sft",
+      "use": "train",
+      "origin": "model",
+      "gated": false,
+      "partial": false,
+      "rows_served": 9241,
+      "rows_display": "9,241",
+      "splits": {
+        "default/train": 9241
+      },
+      "columns": {
+        "instruction": "string",
+        "input": "string",
+        "output": "string"
+      },
+      "licence_card_field": "apache-2.0",
+      "licence_display": "apache-2.0",
+      "flag": "off-topic",
+      "commit": "1dd073c3f7e27633dcafb18ed16467a32f65b515",
+      "language": null,
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: no split is set aside; none of the rows are drawn from a benchmark in this skill as far as any source states."
+      ],
+      "traps": [
+        "**Trap**: the `input` column is empty in all 100 sampled rows [7]; an Alpaca template that always renders an \"### Input:\" block trains on thousands of empty input sections."
+      ],
+      "card_sha256": "0614b5e3b241583a051fbdb138e1ccecd73c73bee51ca7ef2c1f880b0842fd82"
+    },
+    {
+      "id": "dzunggg/legal-qa-v1",
+      "file": "references/dzunggg__legal-qa-v1.md",
+      "url": "https://huggingface.co/datasets/dzunggg/legal-qa-v1",
+      "kind": "sft",
+      "use": "train",
+      "origin": "unknown",
+      "gated": false,
+      "partial": false,
+      "rows_served": 3742,
+      "rows_display": "3,742",
+      "splits": {
+        "default/train": 3742
+      },
+      "columns": {
+        "question": "string",
+        "answer": "string"
+      },
+      "licence_card_field": null,
+      "licence_display": "none on the card",
+      "flag": "no-licence",
+      "commit": "6280beb74faf5b4dfd1f63adbf7d18908b377b93",
+      "language": null,
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: no split is set aside."
+      ],
+      "traps": [
+        "**Trap**: the \"Q:\" and \"A:\" prefixes are inside the text [3]; left in, the model learns to begin every answer with \"A:\"."
+      ],
+      "card_sha256": "110dee52c90c8da790bbb25c985eda9f33a9cc50449f63cff65142fed4e0e5cd"
+    },
+    {
+      "id": "nisaar/LLAMA2_Legal_Dataset_4.4k_Instructions",
+      "file": "references/nisaar__LLAMA2_Legal_Dataset_4.4k_Instructions.md",
+      "url": "https://huggingface.co/datasets/nisaar/LLAMA2_Legal_Dataset_4.4k_Instructions",
+      "kind": "sft",
+      "use": "train",
+      "origin": "unknown",
+      "gated": false,
+      "partial": false,
+      "rows_served": 4394,
+      "rows_display": "4,394",
+      "splits": {
+        "default/train": 4394
+      },
+      "columns": {
+        "instruction": "string",
+        "input": "string",
+        "output": "string",
+        "prompt": "string",
+        "text": "string"
+      },
+      "licence_card_field": "apache-2.0",
+      "licence_display": "apache-2.0",
+      "flag": "low-diversity",
+      "commit": "cfadbf50741c89ea05a93183210bfe57ae345cfd",
+      "language": null,
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: no split is set aside."
+      ],
+      "traps": [
+        "**Trap**: `text` already contains the Alpaca template with the answer after \"### Response:\" and no newline before it [3]; training a chat template on `text` wraps one template inside another. Use the three raw columns."
+      ],
+      "card_sha256": "099c731e2cd662ad94eb0148cf01dd775f5f4cfcd537a0fef4d6f1b7c049dada"
+    },
+    {
+      "id": "ShengbinYue/DISC-Law-SFT",
+      "file": "references/ShengbinYue__DISC-Law-SFT.md",
+      "url": "https://huggingface.co/datasets/ShengbinYue/DISC-Law-SFT",
+      "kind": "sft",
+      "use": "both",
+      "origin": "mixed",
+      "gated": false,
+      "partial": false,
+      "rows_served": 0,
+      "rows_display": "285,781 (measured, 4 files)",
+      "splits": {},
+      "columns": null,
+      "licence_card_field": "apache-2.0",
+      "licence_display": "apache-2.0",
+      "flag": "contains-benchmark-items",
+      "commit": "fb12cf02809a85724f7e36977529b1d4b5f9f920",
+      "language": [
+        "zh"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: no split is set aside. The Pair file's `exam-*` rows are judicial-examination questions that also appear in LawBench tasks 1-2 and 3-6 and in AGIEval JEC-QA-KD [6]; remove them before scoring on either benchmark."
+      ],
+      "traps": [
+        "**Trap**: a plain `load_dataset(\"ShengbinYue/DISC-Law-SFT\")` sees all four files as one `train` split with two different schemas (`reference` exists in only two of them) [3]; the dataset viewer's `/size` answers 0 rows for exactly this repository [5]. Load each file with `data_files`."
+      ],
+      "card_sha256": "4e6113f225de53d227885e51ceb423dfe86f9ff3aefdae30635c775f46ba852f"
+    },
+    {
+      "id": "louisbrulenaudet/legalkit",
+      "file": "references/louisbrulenaudet__legalkit.md",
+      "url": "https://huggingface.co/datasets/louisbrulenaudet/legalkit",
+      "kind": "sft",
+      "use": "train",
+      "origin": "mixed",
+      "gated": false,
+      "partial": false,
+      "rows_served": 53000,
+      "rows_display": "53,000",
+      "splits": {
+        "default/train": 53000
+      },
+      "columns": {
+        "input": "string",
+        "output": "string",
+        "start": "string",
+        "expiration": "string",
+        "num": "string",
+        "query": "string"
+      },
+      "licence_card_field": "cc-by-4.0",
+      "licence_display": "cc-by-4.0",
+      "flag": null,
+      "commit": "fe8aeff9e0c838b5f309ee1374c7a277162a985e",
+      "language": [
+        "fr"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: no split is set aside."
+      ],
+      "traps": [
+        "**Trap**: `input` is the article's citation and `output` its text [2] - the reverse of what the column names suggest for SFT. For query-to-article training the prompt is `query`; for citation-to-text recall it is `input`."
+      ],
+      "card_sha256": "7e26401f49497f4f7132210d5985cf9ed59169bfea6f0b92b644ff65c2eb76de"
+    },
+    {
+      "id": "Prarabdha/indian-legal-supervised-fine-tuning-data",
+      "file": "references/Prarabdha__indian-legal-supervised-fine-tuning-data.md",
+      "url": "https://huggingface.co/datasets/Prarabdha/indian-legal-supervised-fine-tuning-data",
+      "kind": "sft",
+      "use": "train",
+      "origin": "mixed",
+      "gated": false,
+      "partial": false,
+      "rows_served": 6055371,
+      "rows_display": "6,055,371",
+      "splits": {
+        "default/train": 6055371
+      },
+      "columns": {
+        "context": "string",
+        "question": "string",
+        "response": "string"
+      },
+      "licence_card_field": "apache-2.0",
+      "licence_display": "apache-2.0",
+      "flag": null,
+      "commit": "05e30cb9536ae6f0d7570c490eb95d73a5117552",
+      "language": [
+        "hi",
+        "en",
+        "ta",
+        "mr",
+        "bn",
+        "or",
+        "te"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: no split is set aside."
+      ],
+      "traps": [
+        "**Trap**: the repository name says Indian legal SFT data but the card's title is \"LegalBrain Indic Legal Corpus\" [1], and a `CyCrawwler/LegalBrain-Indic-Legal-Corpus` repository also exists on the Hub [8]; check which one a plan names before loading."
+      ],
+      "card_sha256": "889c12ec69e120129cd01e984a32ebd3e1f3aa023d5456d3a1514e4224c82642"
+    },
+    {
+      "id": "stindardlogic/legal-reasoning-dpo-100k",
+      "file": "references/stindardlogic__legal-reasoning-dpo-100k.md",
+      "url": "https://huggingface.co/datasets/stindardlogic/legal-reasoning-dpo-100k",
+      "kind": "preference",
+      "use": "train",
+      "origin": "model",
+      "gated": false,
+      "partial": false,
+      "rows_served": 100000,
+      "rows_display": "100,000 (16 unique)",
+      "splits": {
+        "default/train": 100000
+      },
+      "columns": {
+        "prompt": "string",
+        "chosen": "string",
+        "rejected": "string",
+        "metadata": "struct<category: string, context: string>",
+        "id": "string"
+      },
+      "licence_card_field": "apache-2.0",
+      "licence_display": "apache-2.0",
+      "flag": "massive-duplication",
+      "commit": "31db58e87aad732d3be9e71797bef989d42b3929",
+      "language": [
+        "en"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: no split is set aside, and none can be: any split of 16 repeated triples puts the same pairs on both sides."
+      ],
+      "traps": [
+        "**Trap**: `id` is a unique UUID on every row - rows 0 and 1 have different ids [7] - even though the content repeats. Any pipeline that deduplicates or splits by `id` keeps all 100,000 rows and puts identical pairs in train and test."
+      ],
+      "card_sha256": "e83363864c28801b799230db9a9d2ee536866b3c9d18cc87394ad520d7239b65"
+    },
+    {
+      "id": "mb7419/legal-advice-reddit_preference",
+      "file": "references/mb7419__legal-advice-reddit_preference.md",
+      "url": "https://huggingface.co/datasets/mb7419/legal-advice-reddit_preference",
+      "kind": "preference",
+      "use": "train",
+      "origin": "human",
+      "gated": false,
+      "partial": false,
+      "rows_served": 70324,
+      "rows_display": "70,324",
+      "splits": {
+        "default/train": 70324
+      },
+      "columns": {
+        "post_id": "string",
+        "post_score": "float64",
+        "post": "string",
+        "chosen_ans": "string",
+        "rejected_ans": "string",
+        "chosen_score": "float64",
+        "rejected_score": "float64"
+      },
+      "licence_card_field": null,
+      "licence_display": "none on the card",
+      "flag": "no-licence",
+      "commit": "7e274e709c468cf302683dd7a986c54a23a64252",
+      "language": null,
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: no split is set aside. Split by `post_id`, not by row, or the same post lands on both sides. LegalBench's `learned_hands_*` tasks also come from r/legaladvice posts [7], so screen before reporting them."
+      ],
+      "traps": [
+        "**Trap**: a random row split leaks: 64.47% of rows share their `post_id` with another row [6], so a row-level test set is mostly posts the model trained on. Split on `post_id`."
+      ],
+      "card_sha256": "8f0ac01c2787031b489bca4804215d4e6f26496d942ca25ee681a09b832b14db"
+    },
+    {
+      "id": "FredrikBL/Legal-Snigel-DPO",
+      "file": "references/FredrikBL__Legal-Snigel-DPO.md",
+      "url": "https://huggingface.co/datasets/FredrikBL/Legal-Snigel-DPO",
+      "kind": "preference",
+      "use": "both",
+      "origin": "model",
+      "gated": false,
+      "partial": false,
+      "rows_served": 1998,
+      "rows_display": "1,998",
+      "splits": {
+        "default/train": 1598,
+        "default/test": 400
+      },
+      "columns": {
+        "beteckning": "string",
+        "titel": "string",
+        "prompt": "string",
+        "rejected": "string",
+        "chosen": "string",
+        "__index_level_0__": "int64"
+      },
+      "licence_card_field": null,
+      "licence_display": "none on the card",
+      "flag": "no-licence",
+      "commit": "3aff0060c43a1e0748a9cab2030af10c86e453cc",
+      "language": [
+        "sv"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: `test` (400 rows). Measured: 1 of 400 `test` prompts also appears in `train` [6]."
+      ],
+      "traps": [
+        "**Trap**: `__index_level_0__` is a pandas index left in the export [5]; some DPO trainers pass unknown columns through to the collator and fail on it. Drop it."
+      ],
+      "card_sha256": "192e7cc14b8d5e929338bc08c7711fd9f5e8118216e9c0a2b5f0d0e84abd47f4"
+    },
+    {
+      "id": "coastalcph/lex_glue",
+      "file": "references/coastalcph__lex_glue.md",
+      "url": "https://huggingface.co/datasets/coastalcph/lex_glue",
+      "kind": "classification",
+      "use": "both",
+      "origin": "human",
+      "gated": false,
+      "partial": false,
+      "rows_served": 236714,
+      "rows_display": "236,714",
+      "splits": {
+        "case_hold/train": 45000,
+        "case_hold/test": 3600,
+        "case_hold/validation": 3900,
+        "ecthr_a/train": 9000,
+        "ecthr_a/test": 1000,
+        "ecthr_a/validation": 1000,
+        "ecthr_b/train": 9000,
+        "ecthr_b/test": 1000,
+        "ecthr_b/validation": 1000,
+        "eurlex/train": 55000,
+        "eurlex/test": 5000,
+        "eurlex/validation": 5000,
+        "ledgar/train": 60000,
+        "ledgar/test": 10000,
+        "ledgar/validation": 10000,
+        "scotus/train": 5000,
+        "scotus/test": 1400,
+        "scotus/validation": 1400,
+        "unfair_tos/train": 5532,
+        "unfair_tos/test": 1607,
+        "unfair_tos/validation": 2275
+      },
+      "columns": {
+        "context": "string",
+        "endings": "list<string>",
+        "label": "class_label[0, 1, 2, 3, 4]"
+      },
+      "licence_card_field": [
+        "cc-by-4.0"
+      ],
+      "licence_display": "cc-by-4.0",
+      "flag": null,
+      "commit": "c23fdff1a6bf74e0e1a71cb86f1e781d37da888c",
+      "language": [
+        "en"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out all seven `test` splits (23,607 rows). Two LexGLUE tasks have copies elsewhere in this skill: its CaseHOLD test is entirely inside the NVIDIA Nemotron legal set, and its UNFAIR-ToS sentences come from the CLAUDETTE corpus that Pile of Law also carries.**",
+        "**Hold out**: every `test` split. The `case_hold` test items also appear in the Nemotron legal config named `Nemotron-Pretraining-Legal-Case-Law-Summary` [6]; about 10% of `case_hold` test items share half their 8-grams with `case_hold` train (a property of CaseHOLD's opinion excerpts, not an exact leak - exact matches are 8 of 3,600)."
+      ],
+      "traps": [
+        "**Trap**: `unfair_tos` `labels` is a list and is empty for fair sentences [5]; a template that takes `labels[0]` crashes on most rows. Map an empty list to an explicit \"none\" target."
+      ],
+      "card_sha256": "af4de43a559acc5377338ed88a00b5e05568522861c6762acf93a545d7e9cb3f"
+    },
+    {
+      "id": "casehold/casehold",
+      "file": "references/casehold__casehold.md",
+      "url": "https://huggingface.co/datasets/casehold/casehold",
+      "kind": "mcq",
+      "use": "both",
+      "origin": "human",
+      "gated": false,
+      "partial": false,
+      "rows_served": 584507,
+      "rows_display": "584,507 across all configs (53,137 in `all`)",
+      "splits": {
+        "all/train": 42509,
+        "all/validation": 5314,
+        "all/test": 5314,
+        "fold_1/train": 42562,
+        "fold_1/validation": 5261,
+        "fold_1/test": 5314,
+        "fold_10/train": 42563,
+        "fold_10/validation": 5261,
+        "fold_10/test": 5313,
+        "fold_2/train": 42562,
+        "fold_2/validation": 5261,
+        "fold_2/test": 5314,
+        "fold_3/train": 42562,
+        "fold_3/validation": 5261,
+        "fold_3/test": 5314,
+        "fold_4/train": 42562,
+        "fold_4/validation": 5261,
+        "fold_4/test": 5314,
+        "fold_5/train": 42562,
+        "fold_5/validation": 5261,
+        "fold_5/test": 5314,
+        "fold_6/train": 42562,
+        "fold_6/validation": 5261,
+        "fold_6/test": 5314,
+        "fold_7/train": 42562,
+        "fold_7/validation": 5261,
+        "fold_7/test": 5314,
+        "fold_8/train": 42563,
+        "fold_8/validation": 5261,
+        "fold_8/test": 5313,
+        "fold_9/train": 42563,
+        "fold_9/validation": 5261,
+        "fold_9/test": 5313
+      },
+      "columns": {
+        "example_id": "int32",
+        "citing_prompt": "string",
+        "holding_0": "string",
+        "holding_1": "string",
+        "holding_2": "string",
+        "holding_3": "string",
+        "holding_4": "string",
+        "label": "string"
+      },
+      "licence_card_field": null,
+      "licence_display": "none on the card",
+      "flag": "no-licence",
+      "commit": "acc4532a67e0966e9ed7ec4ca543e8532f983b0c",
+      "language": null,
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: `all/test` (5,314 rows). The Nemotron legal config named `Nemotron-Pretraining-Legal-Case-Law-Summary` contains these test items [8]; exclude it from a mix you score on CaseHOLD. Exact leakage from `all/test` into `all/train` is 8 rows [9]."
+      ],
+      "traps": [
+        "**Trap**: the script's CSV for validation is `data/all/val.csv` but the split is exposed as `validation` [5][7]; and on `datasets` 4.x, which dropped script loading, read `data/all/*.csv` directly - the parquet conversion the viewer serves is also available through the `/parquet` API."
+      ],
+      "card_sha256": "eb5229642b49ea44560696c8215756b2b60eca38f76884962968d5da15a7cf43"
+    },
+    {
+      "id": "theatticusproject/cuad-qa",
+      "file": "references/theatticusproject__cuad-qa.md",
+      "url": "https://huggingface.co/datasets/theatticusproject/cuad-qa",
+      "kind": "qa",
+      "use": "both",
+      "origin": "human",
+      "gated": false,
+      "partial": null,
+      "rows_served": null,
+      "rows_display": "26,632 questions (card); viewer serves no rows",
+      "splits": {},
+      "columns": null,
+      "licence_card_field": [
+        "cc-by-4.0"
+      ],
+      "licence_display": "cc-by-4.0",
+      "flag": "overlaps-LegalBench",
+      "commit": "6d9a118fb629814c4384a1e63cfc84f5c01894b3",
+      "language": [
+        "en"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: `test` (4,182 questions, 102 contracts); no test contract title appears in train [4]. LegalBench's `cuad_*` and `contract_qa` tasks are built from these contracts [6]. Hold out LegalBench `cuad_*` entirely if you train on either split."
+      ],
+      "traps": [
+        "**Trap**: about two thirds of questions have no answer [4]; an SFT template that drops empty-answer rows trains a model that always finds a clause. Keep them, with an explicit \"no such clause\" target."
+      ],
+      "card_sha256": "83414be2a739e732f92698a382de08f7b925b6648ee3d18e064e371e7bd0a89d"
+    },
+    {
+      "id": "theatticusproject/cuad",
+      "file": "references/theatticusproject__cuad.md",
+      "url": "https://huggingface.co/datasets/theatticusproject/cuad",
+      "kind": "files",
+      "use": "both",
+      "origin": "human",
+      "gated": false,
+      "partial": false,
+      "rows_served": 84325,
+      "rows_display": "510 contracts (viewer: 84,325 lines)",
+      "splits": {
+        "default/train": 84325
+      },
+      "columns": {
+        "text": "string"
+      },
+      "licence_card_field": "cc-by-4.0",
+      "licence_display": "cc-by-4.0",
+      "flag": null,
+      "commit": "a3c393f5d103fd0c516374e4fdff676c8176dcb1",
+      "language": null,
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: the release does not mark a split; `cuad-qa`'s split uses 408 training and 102 test contracts [7]. LegalBench's `cuad_*` tasks are built from these contracts [8]; do not train on them if you report those tasks."
+      ],
+      "traps": [
+        "**Trap**: `load_dataset(\"theatticusproject/cuad\")` succeeds and returns 84,325 rows of single lines from the text files [5][11] - it looks like data and trains on nothing coherent."
+      ],
+      "card_sha256": "e1d07b9295951a9a659f5f2798adb00fcfbf56c65b345675e8b9ae1edd2d9ca1"
+    },
+    {
+      "id": "theatticusproject/maud",
+      "file": "references/theatticusproject__maud.md",
+      "url": "https://huggingface.co/datasets/theatticusproject/maud",
+      "kind": "mcq",
+      "use": "both",
+      "origin": "human",
+      "gated": false,
+      "partial": false,
+      "rows_served": 39231,
+      "rows_display": "39,231",
+      "splits": {
+        "default/train": 25827,
+        "default/validation": 6753,
+        "default/test": 6651
+      },
+      "columns": {
+        "data_type": "string",
+        "contract_name": "string",
+        "text": "string",
+        "answer": "string",
+        "label": "int64",
+        "question": "string",
+        "subquestion": "string",
+        "text_type": "string",
+        "id": "string",
+        "category": "string"
+      },
+      "licence_card_field": "cc-by-4.0",
+      "licence_display": "cc-by-4.0",
+      "flag": "overlaps-LegalBench",
+      "commit": "37d5c3b95d18dcd8404cc5ce3fd5069be062392f",
+      "language": null,
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: `test` (6,651 rows) - but its contracts are not unseen: all 6,651 `test` rows name a `contract_name` present in `train`, which has 153 distinct contracts [8]. MAUD splits by question, not by contract, so a MAUD test score measures questions on familiar contracts. LegalBench's `maud_*` tasks are built from these questions and nearly all of them sit in `train` [9]; if you report them, do not train on MAUD."
+      ],
+      "traps": [
+        "**Trap**: a held-out MAUD score is not a held-out-contract score: every `test` row's contract is in `train` [8]. To measure generalisation to new agreements, re-split by `contract_name` yourself."
+      ],
+      "card_sha256": "e5754ed8b3f2d516174135ea3a6dbaa42ee02842aed426fef7af83bc1dd53e76"
+    },
+    {
+      "id": "kiddothe2b/contract-nli",
+      "file": "references/kiddothe2b__contract-nli.md",
+      "url": "https://huggingface.co/datasets/kiddothe2b/contract-nli",
+      "kind": "nli",
+      "use": "both",
+      "origin": "human",
+      "gated": false,
+      "partial": false,
+      "rows_served": 20107,
+      "rows_display": "20,107",
+      "splits": {
+        "contractnli_a/train": 6819,
+        "contractnli_a/test": 1991,
+        "contractnli_a/validation": 978,
+        "contractnli_b/train": 7191,
+        "contractnli_b/test": 2091,
+        "contractnli_b/validation": 1037
+      },
+      "columns": {
+        "premise": "string",
+        "hypothesis": "string",
+        "label": "class_label[contradiction, entailment, neutral]"
+      },
+      "licence_card_field": "cc-by-nc-sa-4.0",
+      "licence_display": "cc-by-nc-sa-4.0",
+      "flag": null,
+      "commit": "059927b91122a6827e7dbb4f296f6da8f5dcee1c",
+      "language": null,
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: both `test` splits. Measured inside `contractnli_a`: 116 of 1,991 `test` premises (5.83%) appear verbatim in `train`, 72 (3.62%) with the same hypothesis too [7]. LegalBench's `contract_nli_*` tasks are built from these NDAs and part of them sits in `train` [8]; do not train on it if you report those tasks."
+      ],
+      "traps": [
+        "**Trap**: the script's homepage URL is written `https://stanfordnlp.github.io/ contract- nli/`, with spaces [2]; code or cards that copy it get a dead link. The project page is https://stanfordnlp.github.io/contract-nli/ ."
+      ],
+      "card_sha256": "9ee4addad6b239d374cb07eef2e2236c349bf75eeafd34c39354e8b57b1f7207"
+    },
+    {
+      "id": "FiscalNote/billsum",
+      "file": "references/FiscalNote__billsum.md",
+      "url": "https://huggingface.co/datasets/FiscalNote/billsum",
+      "kind": "summarization",
+      "use": "both",
+      "origin": "human",
+      "gated": false,
+      "partial": false,
+      "rows_served": 23455,
+      "rows_display": "23,455",
+      "splits": {
+        "default/train": 18949,
+        "default/test": 3269,
+        "default/ca_test": 1237
+      },
+      "columns": {
+        "text": "string",
+        "summary": "string",
+        "title": "string"
+      },
+      "licence_card_field": [
+        "cc0-1.0"
+      ],
+      "licence_display": "cc0-1.0",
+      "flag": null,
+      "commit": "3d8510441c06a3d9dfb32eb0d7f80151730bcc4f",
+      "language": [
+        "en"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: `test` and `ca_test`. Measured: 4 of 3,269 `test` bill texts appear in `train` [6]. `lighteval/legal_summarization` repackages the same `train` and `test` as its `BillSum` config [7]."
+      ],
+      "traps": [
+        "**Trap**: bill text keeps the Government Publishing Office's plain-text layout - fixed-width indentation and doubled backquotes as quotation marks (``like this'') [10]. Normalise both, or the model learns to emit them."
+      ],
+      "card_sha256": "ba884f05617958e2c4f06b4043fe04d33894218b2be4a86ccd9e8a1f91488167"
+    },
+    {
+      "id": "coastalcph/multi_eurlex",
+      "file": "references/coastalcph__multi_eurlex.md",
+      "url": "https://huggingface.co/datasets/coastalcph/multi_eurlex",
+      "kind": "classification",
+      "use": "both",
+      "origin": "human",
+      "gated": false,
+      "partial": null,
+      "rows_served": null,
+      "rows_display": "viewer serves no rows; 65,000 docs per full language",
+      "splits": {},
+      "columns": null,
+      "licence_card_field": [
+        "cc-by-sa-4.0"
+      ],
+      "licence_display": "cc-by-sa-4.0 (body says cc-by-4.0)",
+      "flag": "script-loaded",
+      "commit": "2020d0350241461069a54177b639f0e6c7a7a712",
+      "language": [
+        "bg",
+        "cs",
+        "da",
+        "de",
+        "el",
+        "en",
+        "es",
+        "et",
+        "fi",
+        "fr",
+        "hr",
+        "hu",
+        "it",
+        "lt",
+        "lv",
+        "mt",
+        "nl",
+        "pl",
+        "pt",
+        "ro",
+        "sk",
+        "sl",
+        "sv"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: `test` in every language; the splits are parallel across languages (the same laws), so never train on one language's `test` and evaluate on another's."
+      ],
+      "traps": [
+        "**Trap**: the card's own snippet is `load_dataset('multi_eurlex', 'all_languages')` [2] - the old canonical name, not this repository's id. Use `coastalcph/multi_eurlex`."
+      ],
+      "card_sha256": "ee4ce89f36406f0572457c471b7e64d54c99fb1bbbe4431ae1bd552f249c1e17"
+    },
+    {
+      "id": "dennlinger/eur-lex-sum",
+      "file": "references/dennlinger__eur-lex-sum.md",
+      "url": "https://huggingface.co/datasets/dennlinger/eur-lex-sum",
+      "kind": "summarization",
+      "use": "both",
+      "origin": "human",
+      "gated": false,
+      "partial": null,
+      "rows_served": null,
+      "rows_display": "viewer serves no rows; English 1,504",
+      "splits": {},
+      "columns": null,
+      "licence_card_field": [
+        "cc-by-4.0"
+      ],
+      "licence_display": "cc-by-4.0 (body says cc-by-sa-4.0)",
+      "flag": "script-loaded",
+      "commit": "33ecb2d630298e3f912d067aaaa71aaf4ee92404",
+      "language": [
+        "bg",
+        "hr",
+        "cs",
+        "da",
+        "nl",
+        "en",
+        "et",
+        "fi",
+        "fr",
+        "de",
+        "el",
+        "hu",
+        "ga",
+        "it",
+        "lv",
+        "lt",
+        "mt",
+        "pl",
+        "pt",
+        "ro",
+        "sk",
+        "sl",
+        "es",
+        "sv"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: `validation` and `test` (375 acts available in all 24 languages, split 187 / 188) [1]. The card says the authors \"ensured that no duplicates exist across the three splits\" by exact match on reference and summary [1]. `lighteval/legal_summarization`'s `EurLexSum` config has the same English counts [6]."
+      ],
+      "traps": [
+        "**Trap**: config names are full language names in lower case (`english`, `german`), matching the `data/<language>/` directories, not ISO codes [8][9]."
+      ],
+      "card_sha256": "334e922e686bd7cdede9a2c22d0389691119ee2f320884abed4b6bc46edbd331"
+    },
+    {
+      "id": "reglab/barexam_qa",
+      "file": "references/reglab__barexam_qa.md",
+      "url": "https://huggingface.co/datasets/reglab/barexam_qa",
+      "kind": "mcq",
+      "use": "both",
+      "origin": "human",
+      "gated": false,
+      "partial": null,
+      "rows_served": null,
+      "rows_display": "1,195 questions (measured)",
+      "splits": {},
+      "columns": null,
+      "licence_card_field": "cc-by-sa-4.0",
+      "licence_display": "cc-by-sa-4.0",
+      "flag": null,
+      "commit": "b7c245a7e4739f6c785faa2489e283c8daa449d1",
+      "language": [
+        "en"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: `qa` `test` (117 questions). Measured: no `test` question text appears in `train` [4]."
+      ],
+      "traps": [
+        "**Trap**: `prompt` holds shared context and `question` the actual question; several questions share one `prompt` (`prompt_id`) [1][4]. Build the input from both, or questions lose their fact pattern."
+      ],
+      "card_sha256": "3cac6d836541409d7936cc319be0dc964069eb6d19fe70b5944bd084e9632875"
+    },
+    {
+      "id": "ChicagoHAI/CaseSumm",
+      "file": "references/ChicagoHAI__CaseSumm.md",
+      "url": "https://huggingface.co/datasets/ChicagoHAI/CaseSumm",
+      "kind": "summarization",
+      "use": "train",
+      "origin": "human",
+      "gated": false,
+      "partial": false,
+      "rows_served": 27071,
+      "rows_display": "27,071",
+      "splits": {
+        "default/train": 27071
+      },
+      "columns": {
+        "citation": "string",
+        "syllabus": "string",
+        "opinion": "string"
+      },
+      "licence_card_field": "cc-by-nc-3.0",
+      "licence_display": "cc-by-nc-3.0 (card body: NC 4.0 / NC-SA 4.0)",
+      "flag": "licence-conflict",
+      "commit": "880acec67a69766075ddb42882de4722efdeddb2",
+      "language": [
+        "en"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: no split is set aside; carve one, ideally by date, since older opinions differ in style."
+      ],
+      "traps": [
+        "**Trap**: `citation` is written with dots instead of spaces, for example \"108.US.30\" [7]; joining it to other Supreme Court data needs normalising to \"108 U.S. 30\"."
+      ],
+      "card_sha256": "c403fad52c024c8f5d8c359eb95645908fa52f48850f145c7586bc413e1c9179"
+    },
+    {
+      "id": "jhu-clsp/CLERC",
+      "file": "references/jhu-clsp__CLERC.md",
+      "url": "https://huggingface.co/datasets/jhu-clsp/CLERC",
+      "kind": "retrieval",
+      "use": "both",
+      "origin": "human",
+      "gated": false,
+      "partial": true,
+      "rows_served": 105699,
+      "rows_display": "generation test 1,000 (measured); viewer partial",
+      "splits": {
+        "default/train": 105699
+      },
+      "columns": {
+        "query_id": "string",
+        "query": "string",
+        "positive_passages": "list<struct<docid: string, title: string, text: string>>",
+        "negative_passages": "list<struct<docid: string, title: string, text: string>>"
+      },
+      "licence_card_field": null,
+      "licence_display": "none on the card",
+      "flag": "no-licence",
+      "commit": "ef042f8ab436f78704f17faa0a866d1b2b862f6f",
+      "language": [
+        "en"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: `generation/test.jsonl` and the `queries/test.*` and `qrels/*.test.*` files [2]. `generation/all.jsonl` contains everything - do not train on it."
+      ],
+      "traps": [
+        "**Trap**: a plain `load_dataset(\"jhu-clsp/CLERC\")` returns the viewer's auto-detected split, not any task [5]. Always pass `data_files`."
+      ],
+      "card_sha256": "4a384fad47263dd5a7e984f0f163da572c19dfaed3189f4d45e33fea9268dafe"
+    },
+    {
+      "id": "china-ai-law-challenge/cail2018",
+      "file": "references/china-ai-law-challenge__cail2018.md",
+      "url": "https://huggingface.co/datasets/china-ai-law-challenge/cail2018",
+      "kind": "classification",
+      "use": "both",
+      "origin": "human",
+      "gated": false,
+      "partial": false,
+      "rows_served": 2168025,
+      "rows_display": "2,168,025",
+      "splits": {
+        "default/exercise_contest_train": 154592,
+        "default/exercise_contest_valid": 17131,
+        "default/exercise_contest_test": 32508,
+        "default/first_stage_train": 1710856,
+        "default/first_stage_test": 217016,
+        "default/final_test": 35922
+      },
+      "columns": {
+        "fact": "string",
+        "relevant_articles": "list<int32>",
+        "accusation": "list<string>",
+        "punish_of_money": "float32",
+        "criminals": "list<string>",
+        "death_penalty": "bool",
+        "imprisonment": "float32",
+        "life_imprisonment": "bool"
+      },
+      "licence_card_field": [
+        "unknown"
+      ],
+      "licence_display": "unknown",
+      "flag": "split-leakage",
+      "commit": "775098da3ba75f033781f8061900b62503e9bea0",
+      "language": [
+        "zh"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: `final_test` is the most separate: 223 of its 35,922 facts (0.62%) appear in `first_stage_train` [6]. `exercise_contest_test` is not held out from `first_stage_train` (56.56% overlap) and `first_stage_test` only partly (6.07%) [6]. LawBench tasks 3-1, 3-3 and 3-4 are drawn from these cases and appear in `first_stage_train` [7]; do not train on it if you report them."
+      ],
+      "traps": [
+        "**Trap**: split names suggest a train/test design, but `exercise_contest_test` shares 18,388 facts with `first_stage_train` [6]. Evaluating on `exercise_contest_test` after training on `first_stage_train` reports memorisation. Use `final_test`, and deduplicate it against your training facts anyway."
+      ],
+      "card_sha256": "100c6ba561593ae885d3ae8858ab5ac4230d4d9a26086fabedda7d3618e80369"
+    },
+    {
+      "id": "lighteval/legal_summarization",
+      "file": "references/lighteval__legal_summarization.md",
+      "url": "https://huggingface.co/datasets/lighteval/legal_summarization",
+      "kind": "summarization",
+      "use": "eval",
+      "origin": "human",
+      "gated": false,
+      "partial": false,
+      "rows_served": 26860,
+      "rows_display": "26,860",
+      "splits": {
+        "BillSum/train": 18949,
+        "BillSum/test": 3269,
+        "EurLexSum/train": 1129,
+        "EurLexSum/test": 188,
+        "EurLexSum/validation": 187,
+        "MultiLexSum/train": 2210,
+        "MultiLexSum/test": 616,
+        "MultiLexSum/validation": 312
+      },
+      "columns": {
+        "article": "string",
+        "summary": "string"
+      },
+      "licence_card_field": null,
+      "licence_display": "none on the card",
+      "flag": "no-licence",
+      "commit": "e8b8f0aed467234d29138d540e6163573476276c",
+      "language": null,
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: every `test` split - they are the upstream test sets. `BillSum` counts match `FiscalNote/billsum` exactly [5][4]."
+      ],
+      "traps": [
+        "**Trap**: scoring BillSum here and training on `FiscalNote/billsum` `train` is fine; training on this repository's `train` splits and scoring on another harness's copy of the same test set is not - they are the same documents."
+      ],
+      "card_sha256": "51512b57fa4754a945581439d6939ce0ce4180526c15c02964ed52ddb7d297ae"
+    },
+    {
+      "id": "nguha/legalbench",
+      "file": "references/nguha__legalbench.md",
+      "url": "https://huggingface.co/datasets/nguha/legalbench",
+      "kind": "classification",
+      "use": "eval",
+      "origin": "mixed",
+      "gated": false,
+      "partial": false,
+      "rows_served": 91750,
+      "rows_display": "91,750",
+      "splits": {
+        "n_configs": 162,
+        "totals_by_split": {
+          "test": 90894,
+          "train": 856
+        }
+      },
+      "columns": {
+        "index": "int64",
+        "answer": "string",
+        "text": "string"
+      },
+      "licence_card_field": "cc-by-4.0",
+      "licence_display": "cc-by-4.0 (per-task licences)",
+      "flag": null,
+      "commit": "daec8237410aa23e3faf4bc41ad8b3a7e1696826",
+      "language": [
+        "en"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: all of it. Public training sets that contain LegalBench test items [6]: `lawinstruct/lawinstruct` and Nemotron's `GlobalCit` config (`international_citizenship_questions`); `theatticusproject/maud` `train` (`maud_*`); the CUAD training contracts (`cuad_*`); Pile of Law's `tos` config (`unfair_tos`) and `r_legaladvice` config (`learned_hands_*`); ContractNLI `train` (`contract_nli_*`)."
+      ],
+      "traps": [
+        "**Trap**: a single average over all 162 tasks is dominated by a few large families (CUAD, privacy policy, LearnedHands) [6]; those are also families built from public training data. Report per-family scores, and drop any family whose source is in your training mix."
+      ],
+      "card_sha256": "e0aa2e269e769ad2ce9436efa26a957203645d18841ea9c407ed8d3fa4eb3dc3"
+    },
+    {
+      "id": "reglab/housing_qa",
+      "file": "references/reglab__housing_qa.md",
+      "url": "https://huggingface.co/datasets/reglab/housing_qa",
+      "kind": "qa",
+      "use": "eval",
+      "origin": "human",
+      "gated": false,
+      "partial": null,
+      "rows_served": null,
+      "rows_display": "6,853 (+9,297 aux)",
+      "splits": {},
+      "columns": null,
+      "licence_card_field": "cc-by-sa-4.0",
+      "licence_display": "cc-by-sa-4.0",
+      "flag": null,
+      "commit": "761550cc974fa1d9141ffd39014db89efa2a7230",
+      "language": [
+        "en"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: all of it. `questions_aux` contains all of `questions` [1]."
+      ],
+      "traps": [
+        "**Trap**: the `statutes` config's split is named `corpus`, and the question configs' split is `test` - there is no `train` [7]."
+      ],
+      "card_sha256": "f137b2f14d3a9bac87eddac6498a0595a5c81ff979a7955593cc6a00c8412dd9"
+    },
+    {
+      "id": "AdaptLLM/law-tasks",
+      "file": "references/AdaptLLM__law-tasks.md",
+      "url": "https://huggingface.co/datasets/AdaptLLM/law-tasks",
+      "kind": "mcq",
+      "use": "eval",
+      "origin": "human",
+      "gated": false,
+      "partial": false,
+      "rows_served": 5216,
+      "rows_display": "5,216",
+      "splits": {
+        "CaseHOLD/test": 3549,
+        "SCOTUS/test": 60,
+        "UNFAIR_ToS/test": 1607
+      },
+      "columns": {
+        "id": "int64",
+        "input_options": "list<string>",
+        "output": "string",
+        "gold_index": "int64"
+      },
+      "licence_card_field": null,
+      "licence_display": "none on the card",
+      "flag": null,
+      "commit": "9833f318db11941509f2b56a29b423757f8acbd9",
+      "language": [
+        "en"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: all of it. `UNFAIR_ToS` has 1,607 rows, the size of LexGLUE's `unfair_tos` test split [3][6]."
+      ],
+      "traps": [
+        "**Trap**: `UNFAIR_ToS` `gold_index` is a list (multi-label), while `SCOTUS` `gold_index` is an integer [8]; one scoring function for both fails."
+      ],
+      "card_sha256": "a882db4ba197af0b47bae41c94e0d02cddcfee16271d3fb68d81ff46e580765d"
+    },
+    {
+      "id": "isaacus/legal-rag-bench",
+      "file": "references/isaacus__legal-rag-bench.md",
+      "url": "https://huggingface.co/datasets/isaacus/legal-rag-bench",
+      "kind": "qa",
+      "use": "eval",
+      "origin": "human",
+      "gated": false,
+      "partial": false,
+      "rows_served": 4976,
+      "rows_display": "4,976",
+      "splits": {
+        "corpus/test": 4876,
+        "qa/test": 100
+      },
+      "columns": {
+        "id": "string",
+        "title": "string",
+        "text": "string",
+        "footnotes": "string"
+      },
+      "licence_card_field": "cc-by-nc-sa-4.0",
+      "licence_display": "cc-by-nc-sa-4.0",
+      "flag": null,
+      "commit": "db0b31dc6d195ce9916897e1ac5e4e6209736c8a",
+      "language": [
+        "en"
+      ],
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: all of it."
+      ],
+      "traps": [
+        "**Trap**: the `corpus` config is the default [3]; `load_dataset(\"isaacus/legal-rag-bench\")` returns passages, not questions."
+      ],
+      "card_sha256": "9251ecb5735473dea07ff5c9e361c53fff599a056ca42c412e2382bde02b2951"
+    },
+    {
+      "id": "reglab/legal_rag_hallucinations",
+      "file": "references/reglab__legal_rag_hallucinations.md",
+      "url": "https://huggingface.co/datasets/reglab/legal_rag_hallucinations",
+      "kind": "qa",
+      "use": "eval",
+      "origin": "mixed",
+      "gated": false,
+      "partial": false,
+      "rows_served": 500,
+      "rows_display": "500 (400 responses + 100 questions)",
+      "splits": {
+        "default/train": 500
+      },
+      "columns": {
+        "Question ID": "string",
+        "Question Category": "string",
+        "Model": "string",
+        "Question": "string",
+        "Response": "string",
+        "Correctness": "string",
+        "Groundedness": "string",
+        "Label": "string"
+      },
+      "licence_card_field": "cc-by-4.0",
+      "licence_display": "cc-by-4.0",
+      "flag": null,
+      "commit": "6364efad0dede984e9f4aeb1ca07cffb7fa85a77",
+      "language": null,
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: all of it; the authors hold back the other half themselves [1]."
+      ],
+      "traps": [
+        "**Trap**: a plain `load_dataset` concatenates `dataset.csv` and `questions.csv` into one 500-row split [4][6]; the 100 question-only rows have no `Model`, `Response` or `Label` and silently lower any rate computed over the split."
+      ],
+      "card_sha256": "5ef426974b1b2d57be2e48c6363bd87fe34c9a11d56035fd85189b9544f9496c"
+    },
+    {
+      "id": "hails/agieval-jec-qa-kd",
+      "file": "references/hails__agieval-jec-qa-kd.md",
+      "url": "https://huggingface.co/datasets/hails/agieval-jec-qa-kd",
+      "kind": "mcq",
+      "use": "eval",
+      "origin": "human",
+      "gated": false,
+      "partial": false,
+      "rows_served": 1000,
+      "rows_display": "1,000",
+      "splits": {
+        "default/test": 1000
+      },
+      "columns": {
+        "query": "string",
+        "choices": "list<string>",
+        "gold": "list<int64>"
+      },
+      "licence_card_field": null,
+      "licence_display": "none on the card",
+      "flag": null,
+      "commit": "970133b139bcf1cc07f944851dba0e6b715d5659",
+      "language": null,
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: all of it. Most of its questions also appear in `ShengbinYue/DISC-Law-SFT`'s Pair file [7]. Its first item is also LawBench 1-2's first item [4][8]."
+      ],
+      "traps": [
+        "**Trap**: the same questions reappear in LawBench 1-2 [4][8]; reporting both double-counts one question pool."
+      ],
+      "card_sha256": "fc5f468c2fac7a4060305c57a9776d3e9028d9c9b870db35b67de8628a11cec7"
+    },
+    {
+      "id": "doolayer/LawBench",
+      "file": "references/doolayer__LawBench.md",
+      "url": "https://huggingface.co/datasets/doolayer/LawBench",
+      "kind": "mcq",
+      "use": "eval",
+      "origin": "human",
+      "gated": false,
+      "partial": false,
+      "rows_served": 2500,
+      "rows_display": "2,500",
+      "splits": {
+        "1-2/test": 500,
+        "3-1/test": 500,
+        "3-3/test": 500,
+        "3-4/test": 500,
+        "3-6/test": 500
+      },
+      "columns": {
+        "instruction": "string",
+        "question": "string",
+        "answer": "string"
+      },
+      "licence_card_field": null,
+      "licence_display": "none on the card",
+      "flag": "contained-in-training-sets",
+      "commit": "23c262cf1d5593760be72eae0c76b9c0817fef68",
+      "language": null,
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: all of it. Its judgment tasks (3-1, 3-3, 3-4) are drawn from CAIL2018 cases and its exam tasks (1-2, 3-6) also appear in `ShengbinYue/DISC-Law-SFT`'s Pair file [6]; do not train on either if you report LawBench."
+      ],
+      "traps": [
+        "**Trap**: answers must be wrapped in the task's own markers - `[\u6b63\u786e\u7b54\u6848]...<eoa>`, `[\u7f6a\u540d]...<eoa>`, `[\u5211\u671f]...<eoa>` - as each `instruction` specifies [4]; a model that answers correctly without them scores zero under the official parser."
+      ],
+      "card_sha256": "d870a8426f1b2cd90e1e0d81e8361dd52adadc66c0fafd66d717f9d3218a5c5c"
+    },
+    {
+      "id": "harveyai/harvey-labs",
+      "file": "references/harveyai__harvey-labs.md",
+      "url": "https://github.com/harveyai/harvey-labs",
+      "kind": "agentic-eval",
+      "use": "eval",
+      "origin": "mixed",
+      "gated": false,
+      "partial": false,
+      "rows_served": 2010,
+      "rows_display": "2,010 tasks at commit 1dd8140",
+      "splits": {
+        "none": 2010
+      },
+      "columns": {
+        "task.json": "title, work_type, tags, instructions, deliverables, criteria"
+      },
+      "licence_card_field": "MIT",
+      "licence_display": "MIT",
+      "flag": "",
+      "commit": "1dd81403b2fbb60596f7aea3fcecafad7bf73143",
+      "language": "en",
+      "found_by": [
+        "maintainer"
+      ],
+      "holdout_rules": [
+        "**Hold out**: every task. It was published on 2026-05-06, so a training set whose files were all committed before that date cannot contain it; anything newer that mentions Harvey or LAB, including agent trajectories, needs screening before training."
+      ],
+      "traps": [
+        "**Trap**: each task's rubric sits in `task.json` next to its `documents/` folder. An agent or RL environment that can read the task directory can read the answers; the harness forbids it in the system prompt [10], and any environment built on LAB must hide the file."
+      ],
+      "card_sha256": "b600b8cded1c777bac1d859fe4930f4f21860cc814b64ea3fa0fbafd5728590b"
+    },
+    {
+      "id": "crosbylegal/RedlineBench",
+      "file": "references/crosbylegal__RedlineBench.md",
+      "url": "https://huggingface.co/datasets/crosbylegal/RedlineBench",
+      "kind": "agentic-eval",
+      "use": "eval",
+      "origin": "mixed",
+      "gated": false,
+      "partial": false,
+      "rows_served": 140,
+      "rows_display": "140 tasks",
+      "splits": {
+        "tasks/test": 140
+      },
+      "columns": {
+        "task_id": "string",
+        "scenario_id": "string",
+        "scenario_label": "string",
+        "represented_party": "string",
+        "counterparty": "string",
+        "rubric_variant": "string",
+        "instruction_preview": "string",
+        "rubric_category_counts": "string",
+        "contract_path": "string",
+        "rubrics_path": "string",
+        "attorney_redline_doc_path": "string",
+        "source_task_path": "string",
+        "turn": "int64",
+        "rubric_count": "int64",
+        "rubric_criteria_preview": "list<string>"
+      },
+      "licence_card_field": "cc-by-4.0",
+      "licence_display": "cc-by-4.0",
+      "flag": null,
+      "commit": "eee1b6790982ed1279e86bec7616b662a61993e6",
+      "language": "en",
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: all of it. The rubrics and golden redlines sit under each task's `tests/` folder in the same repository."
+      ],
+      "traps": [
+        "**Trap**: loading the `tasks` config gives 140 index rows and truncated previews, not the tasks. Use the task bundles, and keep each bundle's `tests/` folder (rubrics, judge, golden redline) away from the agent and out of any training mix."
+      ],
+      "card_sha256": "43d49c03bf2787a0af91c020cd994c3044b75fcb0aabe797a069349d4cd8297d"
+    },
+    {
+      "id": "chenghao/sec-material-contracts",
+      "file": "references/chenghao__sec-material-contracts.md",
+      "url": "https://huggingface.co/datasets/chenghao/sec-material-contracts",
+      "kind": "text",
+      "use": "train",
+      "origin": "human",
+      "gated": false,
+      "partial": false,
+      "rows_served": 1141632,
+      "rows_display": "1,141,632",
+      "splits": {
+        "default/train": 1141632
+      },
+      "columns": {
+        "index_html_url": "string",
+        "index_text_url": "string",
+        "cik": "string",
+        "name": "string",
+        "type": "string",
+        "filing_date": "string",
+        "report_date": "string",
+        "seq": "string",
+        "desc": "string",
+        "doc_type": "string",
+        "size": "string",
+        "filename": "string",
+        "file_url": "string",
+        "file": "string",
+        "extension": "string",
+        "filing_metadata": "string",
+        "file_content": "string"
+      },
+      "licence_card_field": "cc-by-sa-4.0",
+      "licence_display": "cc-by-sa-4.0",
+      "flag": "not-deduplicated",
+      "commit": "bc6a0be3fa359e426733633439316f66a76dbf41",
+      "language": "en",
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: nothing of its own - no split and no benchmark. This revision was last changed on 2025-08-14 [3], so it cannot contain any benchmark published after that date."
+      ],
+      "traps": [
+        "**Trap**: `file_content` is markup, not clean text: HTML for 854,986 rows and SGML-wrapped filing text for 140,820 [1]. Train on it unstripped and the model learns tags and page headers; strip HTML and the `<DOCUMENT>...<TEXT>` wrapper first."
+      ],
+      "card_sha256": "652c8586c16206e3b1718407137cd5e2eba7d23d5a8fccd43dbbc3262fb196dc"
+    },
+    {
+      "id": "open-agreements/legal-practice-library",
+      "file": "references/open-agreements__legal-practice-library.md",
+      "url": "https://huggingface.co/datasets/open-agreements/legal-practice-library",
+      "kind": "text",
+      "use": "train",
+      "origin": "unknown",
+      "gated": false,
+      "partial": false,
+      "rows_served": 119,
+      "rows_display": "119 (plus about 1,600 repository files)",
+      "splits": {
+        "default/train": 119
+      },
+      "columns": {
+        "topic": "string",
+        "slug": "string",
+        "jurisdiction": "string",
+        "country_code": "string",
+        "canonical_url": "string",
+        "license": "string",
+        "last_reviewed": "string",
+        "snapshot_as_of": "string",
+        "markdown": "string",
+        "stale": "bool"
+      },
+      "licence_card_field": "cc-by-4.0",
+      "licence_display": "cc-by-4.0",
+      "flag": "unreviewed",
+      "commit": "e6c1bdbe1df9016cb20c843f30d1e9edff449eab",
+      "language": "en",
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: nothing; no evaluation split."
+      ],
+      "traps": [
+        "**Trap**: the viewer and `load_dataset` return only the 119 guides in `data.jsonl`; the checklists, case excerpts and other practice areas are markdown and JSON files in the repository tree, under their own licence files. Download them with `huggingface_hub.snapshot_download` if you want them."
+      ],
+      "card_sha256": "d4ddb38b8cb552759d9b46fcc937b5cee9d86b3bb2e336fd08321da255228474"
+    },
+    {
+      "id": "TheTokenFactory/sec-contracts-financial-extraction-instructions",
+      "file": "references/TheTokenFactory__sec-contracts-financial-extraction-instructions.md",
+      "url": "https://huggingface.co/datasets/TheTokenFactory/sec-contracts-financial-extraction-instructions",
+      "kind": "sft",
+      "use": "train",
+      "origin": "mixed",
+      "gated": false,
+      "partial": false,
+      "rows_served": 23049,
+      "rows_display": "23,049 (7,683 examples x 3 formats)",
+      "splits": {
+        "sharegpt/train": 3430,
+        "sharegpt/corrective": 4253,
+        "alpaca/train": 3430,
+        "alpaca/corrective": 4253,
+        "openai/train": 3430,
+        "openai/corrective": 4253
+      },
+      "columns": {
+        "conversations": "list<struct<from,value>>",
+        "metadata": "struct"
+      },
+      "licence_card_field": "cc-by-4.0",
+      "licence_display": "cc-by-4.0",
+      "flag": "model-written-labels",
+      "commit": "c90ac749f9056901c8c3ed22ae1ff7c894c9b696",
+      "language": "en",
+      "found_by": [
+        "hub-search"
+      ],
+      "holdout_rules": [
+        "**Hold out**: nothing of its own; no evaluation split. Last changed 2026-04-10 [3]."
+      ],
+      "traps": [
+        "**Trap**: loading all three configs, or the dataset without a config name in a tool that concatenates configs, triples every example. Pick one format."
+      ],
+      "card_sha256": "c712833732cb16276047fc3bd61d6b864adc95479fc89718d7b2258694554b2b"
+    }
+  ]
+}

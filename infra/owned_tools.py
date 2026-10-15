@@ -83,7 +83,8 @@ _POSTGRESQL_REQUIRED = (
     "share/doc/postgresql/COPYRIGHT",
 )
 
-_PROBE_TIMEOUT_S = 30.0
+# Cold reads from persistent Pod storage can exceed 30 seconds.
+_PROBE_TIMEOUT_S = 120.0
 
 def _repo_root() -> Path:
     return Path(__file__).resolve().parents[1]
@@ -332,7 +333,7 @@ def _probe(
     except (OSError, subprocess.TimeoutExpired) as exc:
         raise ValueError(
             f"owned tool probe failed for {argv[0]}: {exc}; the cached tool is "
-            "corrupt or hung — remove its directory and rerun setup."
+            "unavailable or slow to load; retry the version probe before replacing the cache."
         ) from exc
     match = re.search(pattern, completed.stdout or "")
     if (check_exit and completed.returncode != 0) or match is None:
